@@ -21,19 +21,6 @@ function* steps(firstBoard) {
   }
 }
 
-function printify(board) {
-  let string = '<html><body style="font-family: monospace; font-size: 40px;">';
-  for (let i = 0; i < SIZE; i++) {
-    for (let j = 0; j < SIZE; j++) {
-      string += (board.getCellValue(i, j) ? 'X' : '_');
-    }
-
-    string += '<br>';
-  }
-  string += '</body></html>'
-  return string;
-}
-
 let firstBoardSteps = steps(board);
 
 app.get('/', (req, res) => {
@@ -46,3 +33,21 @@ app.get('/', (req, res) => {
 });
 
 app.listen(2020, () => console.log('Listening on 2020'));
+
+
+
+
+// Helpers
+
+function printify(board) {
+  let string = '<html><body style="font-family: monospace; font-size: 40px;">';
+  for (let i = 0; i < SIZE; i++) {
+    for (let j = 0; j < SIZE; j++) {
+      string += (board.getCellValue(i, j) ? 'X' : '_');
+    }
+
+    string += '<br>';
+  }
+  string += '</body></html>'
+  return string;
+}
