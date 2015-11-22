@@ -1,10 +1,7 @@
 export class Board {
   constructor(size) {
     this.size = size;
-    this.cells = [];
-    for (let i = 0; i < size; i++) {
-      this.cells[i] = [];
-    }
+    this.cells = Array.apply(null, Array(size)).map(r => Array.apply(null, Array(size)).map(c => false));
   }
 
   getCellValue(row, col) {
@@ -39,10 +36,10 @@ export class Board {
   }
 
   nextStep(board) {
-    for (let i = 0; i < this.size; i++) {
-      for (let j = 0; j < this.size; j++) {
-        this.setCellValue(i, j, board.shouldCellLiveNextRound(i, j))
-      }
-    }
+    this.cells.map((r, i) => r.map((c, j) => this.setCellValue(i, j, board.shouldCellLiveNextRound(i, j))));
+  }
+
+  isEmpty() {
+    return !this.cells.reduce((a, row) => a || row.reduce((b, cell) => b || cell, false), false);
   }
 }

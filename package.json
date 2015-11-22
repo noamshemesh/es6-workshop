@@ -10,7 +10,6 @@
   "license": "ISC",
   "dependencies": {
     "babel": "5.8.34",
-    "express": "4.13.3",
-    "jetty": "0.2.1"
+    "express": "4.13.3"
   }
 }

@@ -1,19 +1,25 @@
 import { Board } from './board';
 
-const SIZE = 5;
+const SIZE = 10;
 const express = require('express');
 
 const app = express();
 
 let board = new Board(SIZE);
-board.setCellValue(2, 1, true);
-board.setCellValue(2, 2, true);
-board.setCellValue(2, 3, true);
+
+board.setCellValue(5, 1, true);
+board.setCellValue(5, 2, true);
+board.setCellValue(5, 3, true);
+board.setCellValue(5, 4, true);
+board.setCellValue(5, 5, true);
+board.setCellValue(5, 6, true);
+board.setCellValue(5, 7, true);
+board.setCellValue(5, 8, true);
 
 function* steps(firstBoard) {
   let currBoard = firstBoard;
-
-  while (true) {
+  yield currBoard;
+  while (!currBoard.isEmpty()) {
     let newBoard = new Board(SIZE);
     newBoard.nextStep(currBoard);
     currBoard = newBoard;
@@ -22,6 +28,11 @@ function* steps(firstBoard) {
 }
 
 let firstBoardSteps = steps(board);
+
+app.get('/reset', (req, res) => {
+  firstBoardSteps = steps(board);
+  res.send('done');
+});
 
 app.get('/', (req, res) => {
   let nextObj = firstBoardSteps.next();
